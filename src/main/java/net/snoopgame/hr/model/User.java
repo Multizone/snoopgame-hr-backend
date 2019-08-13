@@ -13,7 +13,7 @@ import java.util.List;
 public class User extends BaseEntity{
 
     @NotNull
-    @Column(name = "username")
+    @Column(name = "user_name")
     private String userName;
 
     @NotNull
@@ -21,23 +21,23 @@ public class User extends BaseEntity{
     private String password;
 
     @NotNull
-    @Column(name = "lastname")
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "middlename")
+    @Column(name = "middle_name")
     private String middleName;
 
-    @Column(name = "birth date")
+    @Column(name = "birth_date")
     private Date dateOfBirth;
 
     @Column(name = "department")
     private Department department;
 
-    @Column(name = "workingSince")
+    @Column(name = "working_since")
     private Date startWorkingDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
+    @JoinTable(name = "employee_roles",
         joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles;
