@@ -2,6 +2,8 @@ package net.snoopgame.hr.security;
 
 import lombok.extern.slf4j.Slf4j;
 import net.snoopgame.hr.model.User;
+import net.snoopgame.hr.security.jwt.JwtUser;
+import net.snoopgame.hr.security.jwt.JwtUserFactory;
 import net.snoopgame.hr.service.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,6 +27,9 @@ public class JwtUserDetailsService implements UserDetailsService {
         if(user == null )
             throw new UsernameNotFoundException("In method loadUserByUserName, user: " + userName + " not found");
 
-        return null;
+        JwtUser jwtUser = JwtUserFactory.create(user);
+        log.info("In loadByUserName - user with userName: {} successfully loaded", userName);
+
+        return jwtUser;
     }
 }
