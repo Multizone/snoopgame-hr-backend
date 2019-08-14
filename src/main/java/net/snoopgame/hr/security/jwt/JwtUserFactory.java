@@ -20,6 +20,7 @@ public final class JwtUserFactory {
                 user.getUserName(),
                 user.getLastName(),
                 user.getMiddleName(),
+                user.getEmail(),
                 user.getPassword(),
                 user.getStatus().equals(Status.ACTIVE),
                 user.getUpdated(),

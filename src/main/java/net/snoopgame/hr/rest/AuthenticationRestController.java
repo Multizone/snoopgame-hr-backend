@@ -36,21 +36,21 @@ public class AuthenticationRestController {
     public ResponseEntity login (@RequestBody AuthenticationRequestDto requestDto){
 
         try{
-            String userName = requestDto.getUsername();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, requestDto.getPassword()));
-            User user = userService.findByUserName(userName);
+            String userEmail = requestDto.getEmail();
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userEmail, requestDto.getPassword()));
+            User user = userService.findByEmail(userEmail);
 
-            if(user ==null)
-                throw new UsernameNotFoundException("User with username: " + userName + "not found.");
+            if(user == null)
+                throw new UsernameNotFoundException("User with e-mail: " + userEmail + "not found.");
 
-            String token = jwtTokenProvider.createToken(userName, user.getRoles());
+            String token = jwtTokenProvider.createToken(userEmail, user.getRoles());
             Map<Object, Object> response = new HashMap<>();
-            response.put("username", userName);
+            response.put("user_email", userEmail);
             response.put("token", token);
 
             return ResponseEntity.ok(response);
         }catch(AuthenticationException e){
-            throw new BadCredentialsException("Invalid username or password");
+            throw new BadCredentialsException("Invalid login (e-mail) or password");
         }
     }
 }

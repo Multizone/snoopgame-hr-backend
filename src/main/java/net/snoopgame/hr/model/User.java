@@ -23,6 +23,10 @@ public class User {
     private Long id;
 
     @NotNull
+    @Column(name = "e_mail")
+    private String email;
+
+    @NotNull
     @Column(name = "user_name")
     private String userName;
 
