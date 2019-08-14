@@ -8,6 +8,7 @@ import net.snoopgame.hr.repository.RoleRepository;
 import net.snoopgame.hr.repository.UserRepository;
 import net.snoopgame.hr.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,11 +20,13 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository uRepository;
     private final RoleRepository rRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository uRepository, RoleRepository rRepository) {
+    public UserServiceImpl(UserRepository uRepository, RoleRepository rRepository, BCryptPasswordEncoder passwordEncoder) {
         this.uRepository = uRepository;
         this.rRepository = rRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -32,7 +35,7 @@ public class UserServiceImpl implements UserService {
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(uRole);
 
-        user.setPassword(user.getPassword());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(userRoles);
         user.setStatus(Status.ACTIVE);
 

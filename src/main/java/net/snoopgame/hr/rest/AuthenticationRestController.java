@@ -4,14 +4,13 @@ import net.snoopgame.hr.dto.AuthenticationRequestDto;
 import net.snoopgame.hr.model.User;
 import net.snoopgame.hr.security.jwt.JwtTokenProvider;
 import net.snoopgame.hr.service.UserService;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.BeanIds;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,10 +32,11 @@ public class AuthenticationRestController {
         this.userService = userService;
     }
 
+    @PostMapping("login")
     public ResponseEntity login (@RequestBody AuthenticationRequestDto requestDto){
 
         try{
-            String userName = requestDto.getUserName();
+            String userName = requestDto.getUsername();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, requestDto.getPassword()));
             User user = userService.findByUserName(userName);
 
