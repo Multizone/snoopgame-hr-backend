@@ -22,7 +22,7 @@ public class JwtTokenProvider {
     @Value("${jwt.token.secret}")
     private String secret;
 
-    @Value("${jwt.toke.expired")
+    @Value("${jwt.token.expired}")
     private Long validityInMilliseconds;
 
     private UserDetailsService userDetailsService;
@@ -62,7 +62,7 @@ public class JwtTokenProvider {
         return null;
     }
 
-    public boolean vaidateToken(String token){
+    public boolean validateToken(String token){
         try{
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
 
