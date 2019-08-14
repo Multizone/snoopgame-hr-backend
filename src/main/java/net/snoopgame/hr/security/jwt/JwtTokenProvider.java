@@ -2,6 +2,7 @@ package net.snoopgame.hr.security.jwt;
 
 import io.jsonwebtoken.*;
 import net.snoopgame.hr.model.Role;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +28,7 @@ public class JwtTokenProvider {
     @Value("${jwt.token.expired}")
     private Long validityInMilliseconds;
 
+    @Autowired
     private UserDetailsService userDetailsService;
 
     @Bean
@@ -56,6 +58,10 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token){
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUserEmail(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    }
+
+    public String getUsername(String token) {
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
     }
 
     public String getUserEmail(String token){

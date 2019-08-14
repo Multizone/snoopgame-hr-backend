@@ -57,9 +57,9 @@ public class UserServiceImpl implements UserService {
         User result = uRepository.findByEmail(email);
 
         if(result == null)
-            log.warn("In findByEmail no users found with e-mail" + email);
+            log.warn("In findByEmail no users found with e-mail: " + email);
         else
-            log.info("In findByEmail - {} user was found by e-mail- {}", result, email);
+            log.info("In findByEmail - {} user was found by e-mail: {}", result, email);
 
         return result;
     }
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
         if(result == null)
             log.warn("In findByUserId no users found with id: {}", id);
         else
-            log.info("In findByUserId method was found a {}, with id - {}", result.getUserName(), id);
+            log.info("In findByUserId method was found a {}, with id: {}", result.getUserName(), id);
 
         return result;
     }
