@@ -1,5 +1,6 @@
 package net.snoopgame.hr.rest;
 
+import net.snoopgame.hr.dto.AdminUserDto;
 import net.snoopgame.hr.dto.UserDto;
 import net.snoopgame.hr.model.User;
 import net.snoopgame.hr.service.UserService;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/admin/")
 public class AdminRestController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public AdminRestController(UserService userService){
@@ -23,13 +24,14 @@ public class AdminRestController {
     }
 
     @GetMapping(value = "user/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable(name = "id") Long id){
+    public ResponseEntity<AdminUserDto> getUserById(@PathVariable(name = "id") Long id){
+
         User user = userService.findById(id);
 
         if(user == null)
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-        UserDto result = UserDto.fromUser(user);
+        AdminUserDto result = AdminUserDto.fromUser(user);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

@@ -5,6 +5,7 @@ import net.snoopgame.hr.model.User;
 import net.snoopgame.hr.security.jwt.JwtUser;
 import net.snoopgame.hr.security.jwt.JwtUserFactory;
 import net.snoopgame.hr.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +17,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     private final UserService userService;
 
+    @Autowired
     public JwtUserDetailsService(UserService userService){
         this.userService = userService;
     }
