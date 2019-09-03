@@ -1,6 +1,7 @@
 package net.snoopgame.hr.rest;
 
 import net.snoopgame.hr.dto.UserDto;
+import net.snoopgame.hr.model.HRcalculation.CalculationModel;
 import net.snoopgame.hr.model.User;
 import net.snoopgame.hr.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class UserRestController {
         if(user == null)
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
+        CalculationModel model = new CalculationModel(user);
+        model.calculateUserSickdays();
         UserDto result = UserDto.fromUser(user);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

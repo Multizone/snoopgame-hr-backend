@@ -2,6 +2,7 @@ package net.snoopgame.hr.rest;
 
 import net.snoopgame.hr.dto.AdminUserDto;
 import net.snoopgame.hr.dto.UserDto;
+import net.snoopgame.hr.model.HRcalculation.CalculationModel;
 import net.snoopgame.hr.model.User;
 import net.snoopgame.hr.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,11 @@ public class AdminRestController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
         AdminUserDto result = AdminUserDto.fromUser(user);
+        CalculationModel test = new CalculationModel(user);
+        test.calculateUserSickdays();
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+
 }
