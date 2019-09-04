@@ -31,7 +31,7 @@ public class UserRestController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
         CalculationModel model = new CalculationModel(user);
-        model.calculateUserSickdays();
+        model.calculateUserSickDays();
         UserDto result = UserDto.fromUser(user);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

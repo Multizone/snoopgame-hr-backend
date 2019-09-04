@@ -1,7 +1,6 @@
 package net.snoopgame.hr.rest;
 
 import net.snoopgame.hr.dto.AdminUserDto;
-import net.snoopgame.hr.dto.UserDto;
 import net.snoopgame.hr.model.HRcalculation.CalculationModel;
 import net.snoopgame.hr.model.User;
 import net.snoopgame.hr.service.UserService;
@@ -34,7 +33,7 @@ public class AdminRestController {
 
         AdminUserDto result = AdminUserDto.fromUser(user);
         CalculationModel test = new CalculationModel(user);
-        test.calculateUserSickdays();
+        test.calculateUserSickDays();
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
