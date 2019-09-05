@@ -1,12 +1,14 @@
 package net.snoopgame.hr.service.implementation;
 
 import lombok.extern.slf4j.Slf4j;
+import net.snoopgame.hr.model.EditModels.UserForEdit;
 import net.snoopgame.hr.model.Role;
 import net.snoopgame.hr.model.Status;
 import net.snoopgame.hr.model.User;
 import net.snoopgame.hr.repository.RoleRepository;
 import net.snoopgame.hr.repository.UserRepository;
 import net.snoopgame.hr.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(User user) {
+        System.out.println(user);
         Role uRole = rRepository.findByRole("ROLE_USER");
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(uRole);
@@ -43,6 +46,36 @@ public class UserServiceImpl implements UserService {
         log.info("In register method user - {} was created successfully", registeredUser);
 
         return registeredUser;
+    }
+
+    @Override
+    public User editUser(User user, UserForEdit newUser) {
+
+        if(user == null || newUser == null)
+            return null;
+
+        List<Role> uRoles = new ArrayList<>();
+        for(int i=0; i<newUser.getRoleNames().size(); i++)
+            uRoles.add(rRepository.findByRole(newUser.getRoleNames().get(i)));
+
+        user.setUserName(newUser.getUserName());
+        user.setEmail(newUser.getEmail());
+        user.setMiddleName(newUser.getUserMiddleName());
+        user.setLastName(newUser.getUserLastName());
+        user.setDateOfBirth(newUser.getDateOfBirth());
+        user.setDepartment(newUser.getDepartment());
+        user.setStartWorkingDate(newUser.getStartWorkingDate());
+        user.setStatus(newUser.getStatus());
+        user.setSpentSickDays(newUser.getSpentSickDays());
+        user.setFreeSickDays(newUser.getFreeSickDays());
+        user.setSpentVacationDays(newUser.getSpentVacationDays());
+        user.setFreeVacationDays(newUser.getFreeVacationDays());
+        user.setRoles(uRoles);
+
+        System.out.println("------------" + uRoles);
+        System.out.println(newUser);
+
+        return uRepository.save(user);
     }
 
     @Override

@@ -3,6 +3,7 @@ package net.snoopgame.hr.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import net.snoopgame.hr.model.EditModels.UserForEdit;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "employees")
 @Data
-@ToString(of = {"userName", "password"})
+@ToString(of = {"userName", "password", "roles", "userRoles", "department"})
 @EqualsAndHashCode(of = {"id"})
 public class User {
 

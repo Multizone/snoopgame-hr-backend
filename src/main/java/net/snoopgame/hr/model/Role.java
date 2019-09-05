@@ -1,5 +1,7 @@
 package net.snoopgame.hr.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -21,6 +23,8 @@ public class Role{
     @Column(name = "role")
     private String role;
 
+    @JsonIgnore
+    @JsonIgnoreProperties(value = "users")
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<User> users;
 
