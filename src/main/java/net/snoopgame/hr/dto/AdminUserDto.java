@@ -25,6 +25,8 @@ public class AdminUserDto {
     private Date startWorkingDate;
     private Date created;
     private Date updated;
+    private double freeSickDays;
+    private double freeVacationDays;
 
     public static AdminUserDto fromUser(User user){
         AdminUserDto adminUserDto = new AdminUserDto();
@@ -40,6 +42,8 @@ public class AdminUserDto {
         adminUserDto.setStartWorkingDate(user.getStartWorkingDate());
         adminUserDto.setCreated(user.getCreated());
         adminUserDto.setUpdated(user.getUpdated());
+        adminUserDto.setFreeSickDays(user.getFreeSickDays());
+        adminUserDto.setFreeVacationDays(user.getFreeVacationDays());
 
         ArrayList<String> roles = new ArrayList<>();
         for(int i=0; i<user.getRoles().size(); i++)

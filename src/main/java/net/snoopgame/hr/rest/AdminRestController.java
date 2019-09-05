@@ -41,11 +41,6 @@ public class AdminRestController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/user/getRole/{id}")
-    public ResponseEntity<List<Role>> getRoles(@PathVariable(name = "id") Long id){
-        return new ResponseEntity<>(userService.findById(id).getRoles(), HttpStatus.OK);
-    }
-
     @PostMapping(path = "/add")
     public ResponseEntity<String> addUser(@RequestBody User user){
         userService.register(user);
@@ -66,8 +61,6 @@ public class AdminRestController {
 
     @PutMapping("/edit/{id}")
     public ResponseEntity<User> editUserRoles(@PathVariable("id") User user, @RequestBody UserForEdit newUser){
-        System.out.println(newUser);
-        System.out.println(user);
         return new ResponseEntity<>(userService.editUser(user, newUser), HttpStatus.OK);
     }
 }

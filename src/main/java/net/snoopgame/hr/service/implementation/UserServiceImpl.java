@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(userRoles);
         user.setStatus(Status.ACTIVE);
+        user.setCreated(new Date(System.currentTimeMillis()));
 
         User registeredUser = uRepository.save(user);
         log.info("In register method user - {} was created successfully", registeredUser);
@@ -71,9 +73,7 @@ public class UserServiceImpl implements UserService {
         user.setSpentVacationDays(newUser.getSpentVacationDays());
         user.setFreeVacationDays(newUser.getFreeVacationDays());
         user.setRoles(uRoles);
-
-        System.out.println("------------" + uRoles);
-        System.out.println(newUser);
+        user.setUpdated(new Date(System.currentTimeMillis()));
 
         return uRepository.save(user);
     }
