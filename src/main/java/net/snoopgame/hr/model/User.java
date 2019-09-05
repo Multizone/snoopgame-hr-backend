@@ -72,4 +72,9 @@ public class User {
     private double spentSickDays;
 
     private double freeSickDays;
+
+    @Column(name = "spent_vacation_days")
+    private double spentVacationDays;
+
+    private double freeVacationDays;
 }

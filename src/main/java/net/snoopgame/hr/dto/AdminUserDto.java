@@ -49,4 +49,16 @@ public class AdminUserDto {
 
         return adminUserDto;
     }
+
+    public static List<AdminUserDto> fromUsers(List<User> users){
+
+        List<AdminUserDto> userList = new ArrayList<>();
+
+        for(int i=0; i< users.size(); i++){
+            User user = users.get(i);
+            userList.add(fromUser(user));
+        }
+
+        return userList;
+    }
 }

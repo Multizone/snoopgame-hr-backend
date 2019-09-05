@@ -7,13 +7,13 @@ import net.snoopgame.hr.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/admin/")
+@RequestMapping(value = "/api/admin")
 public class AdminRestController {
 
     private final UserService userService;
@@ -23,7 +23,7 @@ public class AdminRestController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "user/{id}")
+    @GetMapping(value = "/user/{id}")
     public ResponseEntity<AdminUserDto> getUserById(@PathVariable(name = "id") Long id){
 
         User user = userService.findById(id);
@@ -34,9 +34,26 @@ public class AdminRestController {
         AdminUserDto result = AdminUserDto.fromUser(user);
         CalculationModel test = new CalculationModel(user);
         test.calculateUserSickDays();
+        test.calculateUserVacationDays();
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PostMapping(path = "/add")
+    public ResponseEntity<String> addUser(@RequestBody User user){
+        userService.register(user);
+        return new ResponseEntity<>("User was successfully added", HttpStatus.OK);
+    }
 
+    @GetMapping(path = "/getAll")
+    public ResponseEntity<List<AdminUserDto>> getAllUsers(){
+        List<AdminUserDto> result = AdminUserDto.fromUsers(userService.getAll());
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/remove/{id}")
+    public ResponseEntity<String> removeUser(@PathVariable("id") User user){
+        userService.delete(user.getId());
+        return new ResponseEntity<>("User was removed", HttpStatus.OK);
+    }
 }
