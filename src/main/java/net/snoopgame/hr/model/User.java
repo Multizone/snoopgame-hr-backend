@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "employees")
@@ -70,12 +71,8 @@ public class User {
     private List<Role> roles;
 
     @Column(name = "spent_sick_days")
-    private double spentSickDays;
-
-    private double freeSickDays;
+    private double spentSickDaysCount;
 
     @Column(name = "spent_vacation_days")
-    private double spentVacationDays;
-
-    private double freeVacationDays;
+    private double spentVacationDaysCount;
 }

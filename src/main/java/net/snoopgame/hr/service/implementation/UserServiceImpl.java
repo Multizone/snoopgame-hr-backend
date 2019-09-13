@@ -8,7 +8,6 @@ import net.snoopgame.hr.model.User;
 import net.snoopgame.hr.repository.RoleRepository;
 import net.snoopgame.hr.repository.UserRepository;
 import net.snoopgame.hr.service.UserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -68,10 +67,10 @@ public class UserServiceImpl implements UserService {
         user.setDepartment(newUser.getDepartment());
         user.setStartWorkingDate(newUser.getStartWorkingDate());
         user.setStatus(newUser.getStatus());
-        user.setSpentSickDays(newUser.getSpentSickDays());
-        user.setFreeSickDays(newUser.getFreeSickDays());
-        user.setSpentVacationDays(newUser.getSpentVacationDays());
-        user.setFreeVacationDays(newUser.getFreeVacationDays());
+        user.setSpentSickDaysCount(newUser.getSpentSickDays());
+        //user.setFreeSickDays(newUser.getFreeSickDays());
+        user.setSpentVacationDaysCount(newUser.getSpentVacationDays());
+        //user.setFreeVacationDays(newUser.getFreeVacationDays());
         user.setRoles(uRoles);
         user.setUpdated(new Date(System.currentTimeMillis()));
 

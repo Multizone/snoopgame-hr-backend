@@ -20,13 +20,12 @@ public class CalculationModel {
 
     public double calculateUserSickDays(){
         double generalNumberOfSickDays = workedMonths * sickDaysCoefficient;
-        double freeSickDays = generalNumberOfSickDays - user.getSpentSickDays();
-        user.setFreeSickDays(freeSickDays);
+        double freeSickDays = generalNumberOfSickDays - user.getSpentSickDaysCount();
 
         System.out.println(" There are " + workedMonths + " month between " + user.getStartWorkingDate() + " and " +
                 LocalDate.now());
         System.out.print(" There are " + generalNumberOfSickDays + " sick days in total.");
-        System.out.print(" There are " + user.getSpentSickDays() + " spent user sick days.");
+        System.out.print(" There are " + user.getSpentSickDaysCount() + " spent user sick days.");
         System.out.println(" There are " + freeSickDays + " free sick days for user " + user.getUserName());
 
         return freeSickDays;
@@ -34,11 +33,10 @@ public class CalculationModel {
 
     public double calculateUserVacationDays(){
         double generalNumberOfVacationDays = workedMonths * vacationDaysCoefficient;
-        double freeVacationDays = generalNumberOfVacationDays - user.getSpentVacationDays();
-        user.setFreeVacationDays(freeVacationDays);
+        double freeVacationDays = generalNumberOfVacationDays - user.getSpentVacationDaysCount();
 
         System.out.print(" There are " + generalNumberOfVacationDays + " total number of vacation days.");
-        System.out.print(" There are " + user.getSpentVacationDays() + " spent user vacation days.");
+        System.out.print(" There are " + user.getSpentVacationDaysCount() + " spent user vacation days.");
         System.out.print(" There are " + freeVacationDays + " free vacation days for user " + user.getUserName());
 
         return freeVacationDays;

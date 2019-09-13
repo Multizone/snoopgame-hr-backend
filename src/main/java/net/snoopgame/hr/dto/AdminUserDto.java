@@ -3,6 +3,7 @@ package net.snoopgame.hr.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import net.snoopgame.hr.model.Department;
+import net.snoopgame.hr.model.HRcalculation.CalculationModel;
 import net.snoopgame.hr.model.User;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class AdminUserDto {
     private double freeVacationDays;
 
     public static AdminUserDto fromUser(User user){
+        CalculationModel model = new CalculationModel(user);
         AdminUserDto adminUserDto = new AdminUserDto();
 
         adminUserDto.setId(user.getId());
@@ -42,8 +44,8 @@ public class AdminUserDto {
         adminUserDto.setStartWorkingDate(user.getStartWorkingDate());
         adminUserDto.setCreated(user.getCreated());
         adminUserDto.setUpdated(user.getUpdated());
-        adminUserDto.setFreeSickDays(user.getFreeSickDays());
-        adminUserDto.setFreeVacationDays(user.getFreeVacationDays());
+        adminUserDto.setFreeSickDays(model.calculateUserSickDays());
+        adminUserDto.setFreeVacationDays(model.calculateUserVacationDays());
 
         ArrayList<String> roles = new ArrayList<>();
         for(int i=0; i<user.getRoles().size(); i++)
@@ -55,7 +57,6 @@ public class AdminUserDto {
     }
 
     public static List<AdminUserDto> fromUsers(List<User> users){
-
         List<AdminUserDto> userList = new ArrayList<>();
 
         for(int i=0; i< users.size(); i++){
