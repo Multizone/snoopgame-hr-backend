@@ -6,7 +6,9 @@ import net.snoopgame.hr.model.Department;
 import net.snoopgame.hr.model.Status;
 import net.snoopgame.hr.model.User;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -16,6 +18,7 @@ public class HrUserDto {
     private String userMiddleName;
     private String userLastName;
     private String email;
+    private Date dateOfBirth;
     private Date startWorkingDate;
     private Department department;
     private double freeSickDays;
@@ -29,10 +32,22 @@ public class HrUserDto {
         hrDto.setUserMiddleName(user.getMiddleName());
         hrDto.setUserLastName(user.getLastName());
         hrDto.setEmail(user.getEmail());
+        hrDto.setDateOfBirth(user.getDateOfBirth());
         hrDto.setStartWorkingDate(user.getStartWorkingDate());
         hrDto.setDepartment(user.getDepartment());
         hrDto.setStatus(user.getStatus());
 
         return hrDto;
+    }
+
+    public static List<HrUserDto> fromUsers(List<User> users){
+        List<HrUserDto> usersList = new ArrayList<>();
+
+        for(int i=0; i< users.size(); i++){
+            User user = users.get(i);
+            usersList.add(fromUser(user));
+        }
+
+        return usersList;
     }
 }
