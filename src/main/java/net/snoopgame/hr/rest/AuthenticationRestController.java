@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.HashMap;
 import java.util.Map;
 
-@CrossOrigin(origins = {"*"}, allowCredentials = "false")
+@CrossOrigin(origins = {"http://192.168.1.10:8081"}, allowCredentials = "false", maxAge = 4800)
 @RestController
 @RequestMapping(value = "/api/auth/")
 public class AuthenticationRestController {
@@ -31,7 +31,7 @@ public class AuthenticationRestController {
         this.userService = userService;
     }
 
-    @CrossOrigin
+    @CrossOrigin(origins = {"http://192.168.1.10:8081"}, maxAge = 6000)
     @PostMapping("login")
     public ResponseEntity login (@RequestBody AuthenticationRequestDto requestDto){
 
@@ -47,6 +47,7 @@ public class AuthenticationRestController {
             Map<Object, Object> response = new HashMap<>();
             response.put("user_email", userEmail);
             response.put("token", token);
+            response.put("userId", user.getId());
 
             return ResponseEntity.ok(response);
         }catch(AuthenticationException e){
