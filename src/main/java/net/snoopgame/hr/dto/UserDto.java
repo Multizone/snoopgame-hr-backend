@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.snoopgame.hr.model.Department;
+import net.snoopgame.hr.model.DepartmentPosition;
 import net.snoopgame.hr.model.HRcalculation.CalculationModel;
 import net.snoopgame.hr.model.User;
 
@@ -19,9 +20,10 @@ public class UserDto {
     private String middleName;
     private String email;
     private Date startWorkingDate;
-    private Department department;
     private double freeSickDays;
     private double freeVacationDays;
+    private Date birthDate;
+    private DepartmentPosition position;
 
     public User toUser(){
         User user = new User();
@@ -45,8 +47,9 @@ public class UserDto {
         userDto.setId(user.getId());
         userDto.setFreeSickDays(model.calculateUserSickDays());
         userDto.setFreeVacationDays(model.calculateUserVacationDays());
-        userDto.setDepartment(user.getDepartment());
         userDto.setStartWorkingDate(user.getStartWorkingDate());
+        userDto.setBirthDate(user.getDateOfBirth());
+        userDto.setPosition(user.getPosition());
 
         return userDto;
     }

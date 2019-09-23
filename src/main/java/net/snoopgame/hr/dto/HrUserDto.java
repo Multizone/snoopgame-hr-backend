@@ -20,7 +20,6 @@ public class HrUserDto {
     private String email;
     private Date dateOfBirth;
     private Date startWorkingDate;
-    private Department department;
     private double freeSickDays;
     private double freeVacationDays;
     private Status status;
@@ -34,7 +33,6 @@ public class HrUserDto {
         hrDto.setEmail(user.getEmail());
         hrDto.setDateOfBirth(user.getDateOfBirth());
         hrDto.setStartWorkingDate(user.getStartWorkingDate());
-        hrDto.setDepartment(user.getDepartment());
         hrDto.setStatus(user.getStatus());
 
         return hrDto;

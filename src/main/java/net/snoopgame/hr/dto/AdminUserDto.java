@@ -22,7 +22,6 @@ public class AdminUserDto {
     private String status;
     private List<String> userRoles;
     private Date dateOfBirth;
-    private Department department;
     private Date startWorkingDate;
     private Date created;
     private Date updated;
@@ -40,7 +39,6 @@ public class AdminUserDto {
         adminUserDto.setEmail(user.getEmail());
         adminUserDto.setStatus(user.getStatus().name());
         adminUserDto.setDateOfBirth(user.getDateOfBirth());
-        adminUserDto.setDepartment(user.getDepartment());
         adminUserDto.setStartWorkingDate(user.getStartWorkingDate());
         adminUserDto.setCreated(user.getCreated());
         adminUserDto.setUpdated(user.getUpdated());

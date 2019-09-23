@@ -64,7 +64,6 @@ public class UserServiceImpl implements UserService {
         user.setMiddleName(newUser.getUserMiddleName());
         user.setLastName(newUser.getUserLastName());
         user.setDateOfBirth(newUser.getDateOfBirth());
-        user.setDepartment(newUser.getDepartment());
         user.setStartWorkingDate(newUser.getStartWorkingDate());
         user.setStatus(newUser.getStatus());
         user.setSpentSickDaysCount(newUser.getSpentSickDays());

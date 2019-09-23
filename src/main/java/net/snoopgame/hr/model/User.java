@@ -3,7 +3,6 @@ package net.snoopgame.hr.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import net.snoopgame.hr.model.EditModels.UserForEdit;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -11,7 +10,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Table(name = "employees")
@@ -46,9 +44,6 @@ public class User {
     @Column(name = "birth_date")
     private Date dateOfBirth;
 
-    @Column(name = "department")
-    private Department department;
-
     @Column(name = "working_since")
     private Date startWorkingDate;
 
@@ -75,4 +70,10 @@ public class User {
 
     @Column(name = "spent_vacation_days")
     private double spentVacationDaysCount;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinTable(name = "positions",
+            joinColumns = {@JoinColumn(name = "id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
+    private DepartmentPosition position;
 }

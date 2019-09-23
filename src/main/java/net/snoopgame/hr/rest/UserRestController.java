@@ -32,6 +32,7 @@ public class UserRestController {
         CalculationModel model = new CalculationModel(user);
         model.calculateUserSickDays();
         UserDto result = UserDto.fromUser(user);
+        System.out.println(user);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
