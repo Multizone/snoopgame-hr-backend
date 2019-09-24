@@ -3,6 +3,9 @@ package net.snoopgame.hr.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.mapping.Join;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -71,9 +74,15 @@ public class User {
     @Column(name = "spent_vacation_days")
     private double spentVacationDaysCount;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToMany
     @JoinTable(name = "positions",
+        joinColumns = {@JoinColumn(name = "user_id")},
+        inverseJoinColumns = {@JoinColumn( name = "position_id")})
+    private List<DepartmentPosition> position;
+
+    /*@OneToOne(fetch = FetchType.EAGER)
+    @JoinTable(name = "vacation_days",
             joinColumns = {@JoinColumn(name = "id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
-    private DepartmentPosition position;
+    private List<VacationDays> vacationDays;*/
 }

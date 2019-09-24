@@ -19,14 +19,15 @@ public class DepartmentPosition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "position_id")
     private Long id;
 
     @Column(name = "position")
     private String position;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "position", fetch = FetchType.LAZY)
-    private List<User> users;
+    /*@JsonIgnore
+    @OneToMany(mappedBy = "positions")
+    private List<User> users;*/
 
     @Enumerated(EnumType.STRING)
     @Column(name = "department")
