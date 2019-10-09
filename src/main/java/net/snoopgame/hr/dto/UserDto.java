@@ -7,6 +7,7 @@ import net.snoopgame.hr.model.Department;
 import net.snoopgame.hr.model.DepartmentPosition;
 import net.snoopgame.hr.model.HRcalculation.CalculationModel;
 import net.snoopgame.hr.model.User;
+import net.snoopgame.hr.model.VacationDays;
 
 import java.util.Date;
 import java.util.List;
@@ -25,6 +26,7 @@ public class UserDto {
     private double freeVacationDays;
     private Date birthDate;
     private List<DepartmentPosition> positions;
+    private List<VacationDays> vacationDays;
 
     public User toUser(){
         User user = new User();
@@ -51,6 +53,7 @@ public class UserDto {
         userDto.setStartWorkingDate(user.getStartWorkingDate());
         userDto.setBirthDate(user.getDateOfBirth());
         userDto.setPositions(user.getPosition());
+        userDto.setVacationDays(user.getVacationDays());
 
         return userDto;
     }

@@ -25,10 +25,6 @@ public class DepartmentPosition {
     @Column(name = "position")
     private String position;
 
-    /*@JsonIgnore
-    @OneToMany(mappedBy = "positions")
-    private List<User> users;*/
-
     @Enumerated(EnumType.STRING)
     @Column(name = "department")
     private Department department;
@@ -38,4 +34,6 @@ public class DepartmentPosition {
 
     @Column(name ="position_salary")
     private int salary;
+
+    private Long user_id;
 }

@@ -1,10 +1,12 @@
 package net.snoopgame.hr.service.implementation;
 
 import lombok.extern.slf4j.Slf4j;
+import net.snoopgame.hr.model.DepartmentPosition;
 import net.snoopgame.hr.model.EditModels.UserForEdit;
 import net.snoopgame.hr.model.Role;
 import net.snoopgame.hr.model.Status;
 import net.snoopgame.hr.model.User;
+import net.snoopgame.hr.repository.PositionsRepository;
 import net.snoopgame.hr.repository.RoleRepository;
 import net.snoopgame.hr.repository.UserRepository;
 import net.snoopgame.hr.service.UserService;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,28 +25,35 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository uRepository;
     private final RoleRepository rRepository;
+    private final PositionsRepository pRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository uRepository, RoleRepository rRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository uRepository, RoleRepository rRepository, BCryptPasswordEncoder passwordEncoder, PositionsRepository pRepository) {
         this.uRepository = uRepository;
         this.rRepository = rRepository;
         this.passwordEncoder = passwordEncoder;
+        this.pRepository = pRepository;
     }
 
     @Override
     public User register(User user) {
-        System.out.println(user);
+        System.out.println(user.getId());
         Role uRole = rRepository.findByRole("ROLE_USER");
         List<Role> userRoles = new ArrayList<>();
+        DepartmentPosition position = user.getPosition().get(0);
         userRoles.add(uRole);
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(userRoles);
+        user.setPosition(new ArrayList<>());
         user.setStatus(Status.ACTIVE);
         user.setCreated(new Date(System.currentTimeMillis()));
 
         User registeredUser = uRepository.save(user);
+        position.setUser_id(registeredUser.getId());
+        position.setStartWorkingInThisPositionDate(new Date(System.currentTimeMillis()));
+        pRepository.save(position);
         log.info("In register method user - {} was created successfully", registeredUser);
 
         return registeredUser;

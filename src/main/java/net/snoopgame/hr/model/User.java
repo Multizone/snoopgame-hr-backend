@@ -80,9 +80,9 @@ public class User {
         inverseJoinColumns = {@JoinColumn( name = "position_id")})
     private List<DepartmentPosition> position;
 
-    /*@OneToOne(fetch = FetchType.EAGER)
+    @OneToMany
     @JoinTable(name = "vacation_days",
-            joinColumns = {@JoinColumn(name = "id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
-    private List<VacationDays> vacationDays;*/
+        joinColumns = {@JoinColumn(name = "user_id")},
+        inverseJoinColumns = {@JoinColumn( name = "day_id")})
+    private List<VacationDays> vacationDays;
 }
